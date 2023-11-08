@@ -1,14 +1,12 @@
 import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
-
 import { MatDialog } from '@angular/material/dialog';
-import { AddUserComponent } from '../add-user/add-user.component';
-
-
+import { AddEditUserComponent } from '../add-edit-user/add-edit-user.component';
+import { DeleteUserComponent } from '../delete-user/delete-user.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-list',
@@ -21,7 +19,8 @@ export class UserListComponent implements AfterViewInit, OnInit {
 
   constructor(
     private userService: UserService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ){}
 
   ngOnInit(): void {
@@ -47,13 +46,52 @@ export class UserListComponent implements AfterViewInit, OnInit {
     })
   }
 
+  showAlert(msg: string, action: string){
+    this.snackBar.open(msg,action,{
+      horizontalPosition: "end",
+      verticalPosition: "top",
+      duration: 3000
+    })
+  }
+
   modalAdd() {
-    this.dialog.open(AddUserComponent, {
+    this.dialog.open(AddEditUserComponent, {
       disableClose: true,
       width: "350px"
-    }).afterClosed().subscribe(resultado => {
-      if(resultado === "Creado"){
+    }).afterClosed().subscribe(response => {
+      if(response === "Creado"){
         this.showUsers()
+      }
+    });
+  }
+
+  modalEdit(data: User){
+    this.dialog.open(AddEditUserComponent, {
+      disableClose: true,
+      data: data
+    }).afterClosed().subscribe(response => {
+      if(response === "Editado"){
+        this.showUsers()
+      }
+    });
+  }
+
+  modalDelete(data: User){
+    this.dialog.open(DeleteUserComponent, {
+      disableClose: true,
+      width: "350px",
+      data: data
+    }).afterClosed().subscribe(response => {
+      if(response == "Eliminar"){
+        this.userService.delete(data).subscribe({
+          next: (data) => {
+            this.showAlert("Usuario eliminado", "Listo")
+            this.showUsers()
+          },
+          error: (e) =>{
+            console.log(e)
+          }
+        })
       }
     });
   }

@@ -63,10 +63,10 @@ namespace ImSoftware.API.Controllers
         }
 
         [Route("api/users/delete")]
-        [HttpDelete]
-        public async Task<IActionResult> Delete(Guid id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(User user)
         {
-            return Ok(await userRepository.Delete(id));
+            return Ok(await userRepository.Delete(user));
         }
     }
 }

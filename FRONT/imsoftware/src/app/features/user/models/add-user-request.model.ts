@@ -1,5 +1,5 @@
 export interface AddUserRequest{
     name: string;
-    age: string;
+    age: number;
     email: string;
 }

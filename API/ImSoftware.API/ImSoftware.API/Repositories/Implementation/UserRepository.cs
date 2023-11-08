@@ -70,19 +70,13 @@ namespace ImSoftware.API.Repositories.Implementation
             }
         }
 
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> Delete(User user)
         {
             try
             {
-                User? user = new User();
-                user = await dbContext.Users.Where(e => e.Id == id).FirstOrDefaultAsync();
-                if(user != null)
-                {
-                    dbContext.Users.Remove(user);
-                    await dbContext.SaveChangesAsync();
-                    return true;
-                }
-                return false;
+                dbContext.Users.Remove(user);
+                await dbContext.SaveChangesAsync();
+                return true;
             }
             catch (Exception ex)
             {

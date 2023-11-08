@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { UserListComponent } from './features/user/user-list/user-list.component';
-import { AddUserComponent } from './features/user/add-user/add-user.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
@@ -19,13 +18,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AddEditUserComponent } from './features/user/add-edit-user/add-edit-user.component';
+import { DeleteUserComponent } from './features/user/delete-user/delete-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     UserListComponent,
-    AddUserComponent
+    AddEditUserComponent,
+    DeleteUserComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,6 @@ namespace ImSoftware.API.Repositories.Interface
         Task<User> GetUser(Guid id);
         Task<User> Add(User user);
         Task<bool> Update(User user);
-        Task<bool> Delete(Guid id);
+        Task<bool> Delete(User user);
     }
 }

@@ -17,10 +17,6 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiUrl}`);
   }
 
-  getUser(id: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/edit/${id}`);
-  }
-
   addUser(model: AddUserRequest): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/add`, model);
   }
@@ -29,7 +25,7 @@ export class UserService {
     return this.http.put<User>(`${this.apiUrl}/update`, model);
   }
 
-  delete(id: string): Observable<User> {
-    return this.http.delete<User>(`${this.apiUrl}/delete/${id}`);
+  delete(model: User): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/delete`, model);
   }
 }
